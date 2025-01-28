@@ -23,7 +23,7 @@
     background-color: #e6e4e4;
     height: 87px;
     width: 80vw;
-    border-radius: 8px;
+    border-radius: 10px;
     bottom: 20px;
     position: fixed;
 }
@@ -32,6 +32,7 @@
     display: flex;
     width: 100%; /* Ensure the form takes up the full width */
     align-items: center;
+    border-radius: 10px;
 }
 
 .TextInput {
@@ -42,6 +43,7 @@
     height: 85px;
     width: 70vw;
     padding-left: 20px;
+    border-radius: 10px;
 }
 
 .TextBox ion-icon {
