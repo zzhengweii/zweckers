@@ -1,15 +1,5 @@
-/* Fonts */
-@font-face {
-    font-family: 'Josefin-Sans-Bold';
-    src: url('../assets/fonts/Josefin_Sans/JosefinSans-Bold.ttf') format('truetype');
-}
-  
-@font-face {
-    font-family: 'Raleway-SemiBold';
-    src: url('../assets/fonts/Raleway/Raleway-SemiBold.ttf') format('truetype');
-}
+@import '../styles/fonts.css';
 
-/* Styles */
 .FullLogo {
     padding-top: 20px;
     flex-direction: row;
