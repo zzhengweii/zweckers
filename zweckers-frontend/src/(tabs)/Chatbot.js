@@ -60,7 +60,7 @@ function Chatbot() {
                         placeholder="Message botER."
                         className="TextInput"
                         value={inputText}
-                        onChange={(e) => setInputText(e.target.value)} // Update inputText state
+                        onChange={(e) => setInputText(e.target.value)}
                     />
                     <button type="submit" style={{ background: 'none', border: 'none' }}>
                         <ion-icon name="arrow-up-circle"></ion-icon>
