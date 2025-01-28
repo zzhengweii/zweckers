@@ -8,6 +8,11 @@
     font-family: 'Josefin-Sans-Light';
     src: url('../assets/fonts/Josefin_Sans/JosefinSans-Light.ttf') format('truetype');
 } 
+
+@font-face {
+    font-family: 'Josefin-Sans-Regular';
+    src: url('../assets/fonts/Josefin_Sans/JosefinSans-Regular.ttf') format('truetype');
+}
   
 @font-face {
     font-family: 'Raleway-SemiBold';

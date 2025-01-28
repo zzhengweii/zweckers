@@ -1,0 +1,53 @@
+@import '../styles/fonts.css';
+
+.Container {
+    margin-left: 20px;
+    position: relative;
+}
+
+.Header {
+    font-family: 'Josefin-Sans-Bold';
+    font-size: 36px;
+    color: #434ce5;
+}
+.Subtitles {
+    margin-top: -20px;
+    font-family: 'Josefin-Sans-Light';
+    font-size: 20px;
+}
+.TextBox {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between; /* Spread the input and button across the container */
+    align-items: center;
+    background-color: #e6e4e4;
+    height: 87px;
+    width: 80vw;
+    border-radius: 8px;
+    bottom: 20px;
+    position: fixed;
+}
+
+.TextBox form {
+    display: flex;
+    width: 100%; /* Ensure the form takes up the full width */
+    align-items: center;
+}
+
+.TextInput {
+    border-width: 0px;
+    background-color: #e6e4e4;
+    font-family: 'Josefin-Sans-Regular';
+    font-size: 20px;
+    height: 85px;
+    width: 70vw;
+    padding-left: 20px;
+}
+
+.TextBox ion-icon {
+    font-size: 48px;
+    color: #434ce5;
+    align-self: center;
+    justify-self: center;
+    margin-left: 10px; /* Add some space between the input and the icon */
+}

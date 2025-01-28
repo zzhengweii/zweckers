@@ -46,3 +46,8 @@
     width: 207px;
     height: 50px;
 }
+.Button.active {
+    background-color: #434ce5;
+    width: 207px;
+    height: 50px;
+}
