@@ -15,6 +15,7 @@ html, body {
 }
 .Dashboard {
     flex-grow: 1;
+
 }
 .Chatbot {
     flex-grow: 1;
