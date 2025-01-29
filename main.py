@@ -95,7 +95,8 @@ def update_dct():
     filtered_keys = get_true_keys(dct)
     filtered_sentences = filtered_df(df, filtered_keys)
     raw_json = get_relationship(filtered_sentences)
-    return jsonify(raw_json)
+    final_json = extract_json_from_output(raw_json)
+    return jsonify(final_json)
 
 
 def get_relationship(PROMPT, model="deepseek-r1-distill-llama-70b", MaxToken=5000, outputs=2, temperature=0.7):
