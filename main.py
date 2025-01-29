@@ -4,6 +4,10 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from itertools import combinations
 from flask import Flask, jsonify,render_template, request
+from openai import OpenAI
+import os
+
+client = OpenAI(api_key="")
 
 dct = []
 df = []
@@ -91,8 +95,30 @@ def update_dct():
         dct = updated_data
     filtered_keys = get_true_keys(dct)
     filtered_sentences = filtered_df(df, filtered_keys)
-    print(filtered_sentences)
-    return jsonify(filtered_sentences)
+    raw_json = get_relationship(filtered_sentences)
+    return jsonify(raw_json)
+
+def get_relationship(PROMPT,model="gpt-4o-mini", MaxToken=5000, outputs=2, temperature=0.7):
+    response = client.chat.completions.create(
+        model=model,
+        store=False,
+        temperature=temperature,
+        messages=[{
+            "role": "user",
+            "content": (
+                "Extract entities and relationships from the following text. "
+                "For relationships, standardize the use of 'source', 'target', 'relation'. "
+                "Format your response in STRICT JSON with the following structure: "
+                "{"
+                "  \"entities\": [{\"name\": <entity_name>, \"attributes\": [<attributes>]}], "
+                "  \"relationships\": [{\"source\": <entity_name>, \"target\": <entity_name>, \"relation\": <relationship_type>}] "
+                "}. "
+                "The name and attributes should be specific to the context given by the input. "
+                f"Respond in STRICT JSON format with 'entities' and 'relationships' keys only: {PROMPT}"
+            )
+        }]
+    )
+    return response.choices[0].message.content
 
 
 if __name__ == "__main__":
