@@ -1,13 +1,19 @@
 import '../styles/Chatbot.css';
+import axios from 'axios';
 import Message from '../components/Message.js';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
 
 function Chatbot() {
     const [messages, setMessages] = useState([
         { isBot: true, name: 'botER', text: 'How may I help you today?' },
-        { isBot: false, name: 'You', text: 'What is an ER diagram?' },
     ]);
     const [inputText, setInputText] = useState(''); // Manage input text
+    const messagesEndRef = useRef(null);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]); // Runs when messages update
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevent page refresh
@@ -40,7 +46,7 @@ function Chatbot() {
             </div>
 
             {/* Chat Messages */}
-            <div>
+            <div className="Messages">
                 {messages.map((msg, index) => (
                     <Message
                         key={index}
@@ -49,6 +55,7 @@ function Chatbot() {
                         text={msg.text}
                     />
                 ))}
+                <div ref={messagesEndRef} />
             </div>
 
             {/* Message Text Box */}
