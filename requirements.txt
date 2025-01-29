@@ -4,3 +4,4 @@ flask
 networkx 
 spacy
 openai
+groq

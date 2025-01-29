@@ -4,10 +4,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from itertools import combinations
 from flask import Flask, jsonify,render_template, request
-from openai import OpenAI
+from groq import Groq
 import os
-
-client = OpenAI(api_key="")
+import re
 
 dct = []
 df = []
@@ -98,28 +97,44 @@ def update_dct():
     raw_json = get_relationship(filtered_sentences)
     return jsonify(raw_json)
 
-def get_relationship(PROMPT,model="gpt-4o-mini", MaxToken=5000, outputs=2, temperature=0.7):
+
+def get_relationship(PROMPT, model="deepseek-r1-distill-llama-70b", MaxToken=5000, outputs=2, temperature=0.7):
+    client = Groq(api_key="")
     response = client.chat.completions.create(
         model=model,
-        store=False,
+        messages=[
+            {
+                "role": "user",
+                "content": (
+                    "Extract entities and relationships from the following text. "
+                    "For relationships, standardize the use of 'source', 'target', 'relation'. "
+                    "Format your response in STRICT JSON with the following structure: "
+                    "{"
+                    "  \"entities\": [{\"name\": <entity_name>, \"attributes\": [<attributes>]}], "
+                    "  \"relationships\": [{\"source\": <entity_name>, \"target\": <entity_name>, \"relation\": <relationship_type>}] "
+                    "}. "
+                    "The name and attributes should be specific to the context given by the input. "
+                    f"Respond in STRICT JSON format with 'entities' and 'relationships' keys only: {PROMPT}"
+                )
+            }
+        ],
         temperature=temperature,
-        messages=[{
-            "role": "user",
-            "content": (
-                "Extract entities and relationships from the following text. "
-                "For relationships, standardize the use of 'source', 'target', 'relation'. "
-                "Format your response in STRICT JSON with the following structure: "
-                "{"
-                "  \"entities\": [{\"name\": <entity_name>, \"attributes\": [<attributes>]}], "
-                "  \"relationships\": [{\"source\": <entity_name>, \"target\": <entity_name>, \"relation\": <relationship_type>}] "
-                "}. "
-                "The name and attributes should be specific to the context given by the input. "
-                f"Respond in STRICT JSON format with 'entities' and 'relationships' keys only: {PROMPT}"
-            )
-        }]
+        max_completion_tokens=MaxToken,
+        top_p=0.95,
+        stream=False,
+        stop=None,
     )
+
     return response.choices[0].message.content
 
+def extract_json_from_output(output):
+    # Use regex to find the JSON part
+    match = re.search(r'```json(.*?)```', output, re.DOTALL)
+    if match:
+        json_part = match.group(1).strip()
+        return json_part
+    else:
+        return None
 
 if __name__ == "__main__":
     app.run(debug=True)
