@@ -3,7 +3,7 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 from itertools import combinations
-from flask import Flask, jsonify,render_template, request
+from flask import Flask, jsonify,render_template, request, send_from_directory
 from groq import Groq
 import os
 import re
@@ -123,7 +123,7 @@ def update_dct():
     
 
 def get_relationship(PROMPT, model="deepseek-r1-distill-llama-70b", MaxToken=5000, outputs=2, temperature=0.7):
-    client = Groq(api_key="")
+    client = Groq(api_key="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")
     response = client.chat.completions.create(
         model=model,
         messages=[
@@ -197,6 +197,9 @@ def generate_plant_uml_image(relationships, output_file = "images/ERD.png"):
                       form_auth={}, http_opts={}, request_opts={})
     server.processes_file(temp_file, output_file)
 
+@app.route("/images/<filename>")
+def serve_image(filename):
+    return send_from_directory(os.path.join(app.root_path, 'images'), filename)
     
 
 if __name__ == "__main__":
