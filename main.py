@@ -12,7 +12,10 @@ from plantuml import PlantUML
 
 
 dct = []
-df = []
+# For testing
+df = pd.read_csv("ner_graph.csv")
+# For live
+#df = []
 app = Flask(__name__)
 ### Pre-loading the excel
 def pre_load_excel(excel):
@@ -55,14 +58,15 @@ def filter(json_output,keys):
     data = json.loads(json_output)  # Parse the JSON string
     relationships = data['relationships']
     filtered_dicts = []
-    
+
     for dict in relationships:
         if (dict['source'] in keys) and (dict['target'] in keys):
+            old_ = dict['source']
+            new_ = dict['target']
+            dict['source'] = old_.replace(' ','_')
+            dict['target'] = new_.replace(' ','_')
             filtered_dicts.append(dict)
-    #print(filtered_dicts)
-    print(type(data))
-    
-    return ""
+    return filtered_dicts
 
 def get_true_keys(data_dict):
     true_keys = []
@@ -113,7 +117,7 @@ def update_dct():
     
     final_json = extract_json_from_output(raw_json)
     filtered_output = filter(final_json,filtered_keys)
-    #generate_plant_uml_image(filtered_output)
+    generate_plant_uml_image(filtered_output)
     return jsonify(final_json)
 
     
@@ -144,7 +148,7 @@ def get_relationship(PROMPT, model="deepseek-r1-distill-llama-70b", MaxToken=500
         stream=False,
         stop=None,
     )
-
+    print(PROMPT)
     return response.choices[0].message.content
 
 def extract_json_from_output(output):
@@ -158,29 +162,41 @@ def extract_json_from_output(output):
 
 def generate_plant_uml_image(relationships, output_file = "images/ERD.png"):
     plantuml_code = '@startuml\n'
-    print(relationships)
-    print(relationships[0])
+    x = {}
     for relation in relationships:
-        plantuml_code += f"{relation['source']} --> {relation['target']} : {relation['relation']}\n"
-        #source + " - " + target + " : " + relation_type + " > " + "\n"
+        if relation['source'] not in x:
+            x[relation['source']] = 0
+        if relation['target'] not in x:
+            x[relation['target']] = 0
+
+    for relation in relationships:
+        if x[relation['source']] == 0:
+            plantuml_code += f"entity {relation['source']} " + "{ \
+            \ntype: String \n} \n"
+
+            x[relation['source']] = 1
         
-    ##for future updates: hide and restore
+        if x[relation['target']] == 0:
+            plantuml_code += f"entity {relation['target']} " + "{ \
+            \ntype: String \n} \n"
+
+            x[relation['target']] = 1
+        
+    for relation in relationships:
+        plantuml_code += f"{relation['source']} -> {relation['target']} : {relation['relation']}\n"
+        
     plantuml_code += '@enduml'
-    # Save the PlantUML code to a temporary file
-    print(plantuml_code)
+
 
     temp_file = "temp.puml"
     with open(temp_file, "w") as f:
         f.write(plantuml_code)
 
-    # Initialize the PlantUML server
     server = PlantUML(url='http://www.plantuml.com/plantuml/img/',
-                          basic_auth={},
-                          form_auth={}, http_opts={}, request_opts={})
-    
-    # Generate the image
+                      basic_auth={},
+                      form_auth={}, http_opts={}, request_opts={})
     server.processes_file(temp_file, output_file)
-    print(f"Diagram saved as {output_file}")
+
     
 
 if __name__ == "__main__":
