@@ -123,7 +123,7 @@ def update_dct():
     
 
 def get_relationship(PROMPT, model="deepseek-r1-distill-llama-70b", MaxToken=5000, outputs=2, temperature=0.7):
-    client = Groq(api_key="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")
+    client = Groq(api_key="")
     response = client.chat.completions.create(
         model=model,
         messages=[

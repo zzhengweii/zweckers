@@ -1,9 +1,10 @@
 @startuml
-entity Mistral_AI {             
-type: String 
-} 
 entity Microsoft {             
 type: String 
 } 
-Mistral_AI -> Microsoft : partnered
+entity Mistral_AI {             
+type: String 
+} 
+Microsoft -> Mistral_AI : Partnership
+Microsoft -> Mistral_AI : Investment
 @enduml
