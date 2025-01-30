@@ -1,5 +1,4 @@
 import '../styles/Chatbot.css';
-import axios from 'axios';
 import Message from '../components/Message.js';
 import { useState, useRef, useEffect } from 'react';
 
@@ -15,7 +14,7 @@ function Chatbot() {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]); // Runs when messages update
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent page refresh
         if (inputText.trim()) {
             // Add user message to messages array
@@ -23,15 +22,30 @@ function Chatbot() {
                 ...prevMessages,
                 { isBot: false, name: 'You', text: inputText },
             ]);
+    
+            // Make request to Flask backend to get bot's response
+            try {
+                const response = await fetch("http://127.0.0.1:5000/get", {  // Use the local Flask URL
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        msg: inputText,  // Send user input as form data
+                    }),
+                });
 
-            // Simulate a bot response
-            setTimeout(() => {
+                const botReply = await response.text();
+    
+                // Add bot response to messages after a delay
                 setMessages((prevMessages) => [
                     ...prevMessages,
-                    { isBot: true, name: 'botER', text: "I'm here to help with ER diagrams!" },
+                    { isBot: true, name: 'botER', text: botReply },
                 ]);
-            }, 1000);
-
+            } catch (error) {
+                console.error("Error fetching bot response:", error);
+            }
+    
             // Clear input field
             setInputText('');
         }
@@ -42,7 +56,7 @@ function Chatbot() {
             {/* Header */}
             <div>
                 <p className="Header">Your ER Diagram Questions, Answered Here</p>
-                <p className="Subtitles">Powered by ChatGPT</p>
+                <p className="Subtitles">Powered by OpenAI</p>
             </div>
 
             {/* Chat Messages */}

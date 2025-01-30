@@ -5,7 +5,7 @@ import Dashboard from './Dashboard';
 import Chatbot from './Chatbot';
 
 function Main() {
-  const [activeView, setActiveView] = useState('chatbot'); // Default view
+  const [activeView, setActiveView] = useState('dashboard'); // Default view
 
   return (
     <div className="MainContainer">
