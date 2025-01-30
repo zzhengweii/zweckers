@@ -7,6 +7,9 @@ from flask import Flask, jsonify,render_template, request
 from groq import Groq
 import os
 import re
+import json
+from plantuml import PlantUML
+
 
 dct = []
 df = []
@@ -27,11 +30,14 @@ def pre_load_excel(excel):
 
 ### Button Activation
 def preset_ner_dct(ner_graph_df):
+    ## each unique 'label'- org, person is a key
     ner_list = list(ner_graph_df['label'].unique())
     dct = {}
+    ## each label's item is another empty dict
     for n in ner_list:
         x = {}
         dct[n] = x
+        #iterate thru the outer dict to find key w correct label, then assign to false
         for i, v in enumerate(ner_graph_df['entity']):
             if ner_graph_df['label'][i] == n:
                 x[v] = False
@@ -45,9 +51,18 @@ def update_ner(type, v, dct):
     except:
         raise ValueError()
 
-def filter(dct, approve=False):
-    # Filtering logic here
-    return
+def filter(json_output,keys):
+    data = json.loads(json_output)  # Parse the JSON string
+    relationships = data['relationships']
+    filtered_dicts = []
+    
+    for dict in relationships:
+        if (dict['source'] in keys) and (dict['target'] in keys):
+            filtered_dicts.append(dict)
+    #print(filtered_dicts)
+    print(type(data))
+    
+    return ""
 
 def get_true_keys(data_dict):
     true_keys = []
@@ -95,9 +110,13 @@ def update_dct():
     filtered_keys = get_true_keys(dct)
     filtered_sentences = filtered_df(df, filtered_keys)
     raw_json = get_relationship(filtered_sentences)
+    
     final_json = extract_json_from_output(raw_json)
+    filtered_output = filter(final_json,filtered_keys)
+    #generate_plant_uml_image(filtered_output)
     return jsonify(final_json)
 
+    
 
 def get_relationship(PROMPT, model="deepseek-r1-distill-llama-70b", MaxToken=5000, outputs=2, temperature=0.7):
     client = Groq(api_key="")
@@ -135,7 +154,34 @@ def extract_json_from_output(output):
         json_part = match.group(1).strip()
         return json_part
     else:
-        return None
+        return ""
+
+def generate_plant_uml_image(relationships, output_file = "images/ERD.png"):
+    plantuml_code = '@startuml\n'
+    print(relationships)
+    print(relationships[0])
+    for relation in relationships:
+        plantuml_code += f"{relation['source']} --> {relation['target']} : {relation['relation']}\n"
+        #source + " - " + target + " : " + relation_type + " > " + "\n"
+        
+    ##for future updates: hide and restore
+    plantuml_code += '@enduml'
+    # Save the PlantUML code to a temporary file
+    print(plantuml_code)
+
+    temp_file = "temp.puml"
+    with open(temp_file, "w") as f:
+        f.write(plantuml_code)
+
+    # Initialize the PlantUML server
+    server = PlantUML(url='http://www.plantuml.com/plantuml/img/',
+                          basic_auth={},
+                          form_auth={}, http_opts={}, request_opts={})
+    
+    # Generate the image
+    server.processes_file(temp_file, output_file)
+    print(f"Diagram saved as {output_file}")
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
