@@ -9,6 +9,7 @@ import os
 import re
 import json
 from plantuml import PlantUML
+from rapidfuzz import fuzz, process
 
 
 dct = []
@@ -29,7 +30,37 @@ def pre_load_excel(excel):
         for ent in doc.ents:
             records.append((doc_text, ent.text, ent.label_))
     ner_graph_df = pd.DataFrame(records, columns=["original_text", "entity", "label"])
-    return ner_graph_df
+    print("NER done, grouping words together right now...")
+    final_graph = group_similar_words(ner_graph_df,"entity")
+    print("Grouping Done!")
+    return final_graph
+
+
+def is_number(s):
+    try:
+        # Try to convert to float
+        float(s.replace(',', ''))  # Handle commas in numbers like '30,000'
+        return True
+    except ValueError:
+        return False
+
+
+## group quering them and replacing the entity with grouped_entity
+def group_similar_words(df, column, threshold=80):
+    unique_words = df[column].unique()
+    grouped_words = {}
+    
+    for word in unique_words:
+        if word not in grouped_words:
+            matches = process.extract(word, unique_words, scorer=fuzz.token_sort_ratio, score_cutoff=threshold)
+            similar_words = [match[0] for match in matches]
+            for similar_word in similar_words:
+                grouped_words[similar_word] = word
+    
+    df['grouped_entity'] = df[column].map(grouped_words)
+    df['entity'] = df.apply(lambda row: row['grouped_entity'] if not is_number(row['entity']) else row['entity'], axis=1)
+    df['label'] = df.groupby('grouped_entity')['label'].transform('first')
+    return df
 
 ### Button Activation
 def preset_ner_dct(ner_graph_df):
@@ -60,11 +91,11 @@ def filter(json_output,keys):
     filtered_dicts = []
 
     for dict in relationships:
-        if (dict['source'] in keys) and (dict['target'] in keys):
+        if (dict['source'] in keys) or (dict['target'] in keys):
             old_ = dict['source']
             new_ = dict['target']
-            dict['source'] = old_.replace(' ','_')
-            dict['target'] = new_.replace(' ','_')
+            dict['source'] = old_.replace(' ','_').replace('-','_').replace("'",'').replace("�", '').replace("(","").replace(")","")
+            dict['target'] = new_.replace(' ','_').replace('-','_').replace("'",'').replace("�",'').replace("(","").replace(")","")
             filtered_dicts.append(dict)
     return filtered_dicts
 
