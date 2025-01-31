@@ -3,7 +3,7 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 from itertools import combinations
-from flask import Flask, jsonify,render_template, request
+from flask import Flask, jsonify,render_template, request, send_from_directory
 from groq import Groq
 import os
 import re
@@ -197,6 +197,9 @@ def generate_plant_uml_image(relationships, output_file = "images/ERD.png"):
                       form_auth={}, http_opts={}, request_opts={})
     server.processes_file(temp_file, output_file)
 
+@app.route("/images/<filename>")
+def serve_image(filename):
+    return send_from_directory(os.path.join(app.root_path, 'images'), filename)
     
 
 if __name__ == "__main__":

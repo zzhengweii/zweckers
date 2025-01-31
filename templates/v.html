@@ -70,7 +70,7 @@
                 subContainer.appendChild(document.createElement("br"));
                 
             
-                allCheckboxes.push({ checkbox, entityName });
+                allCheckboxes.push({ checkbox, entityName, subContainer });
             }
         }
     }
@@ -79,22 +79,23 @@
     function clearCheckboxes() {
         document.getElementById("checkboxContainer").innerHTML = "";
     }
-/*
+    /*
     function search() {
         const searchTerm = document.getElementById("search").value.toLowerCase();
-        
+
+        // Filter the checkboxes based on the search term
         allCheckboxes.forEach(item => {
             const checkbox = item.checkbox;
             const entityName = item.entityName.toLowerCase();
-    
+
             // Show or hide the checkbox based on whether it matches the search term
             if (entityName.includes(searchTerm)) {
-                checkbox.parentElement.style.display = "block";  // Show
+                item.subContainer.style.display = "block";  // Show
             } else {
-                checkbox.parentElement.style.display = "none";   // Hide
+                item.subContainer.style.display = "none";   // Hide
             }
         });
-    } 
+    }
 */
     // Collect all current checkbox states, build JSON, POST to server
     async function submitUpdatedData() {
@@ -111,6 +112,22 @@
         });
 
         // Send to Flask
+
+        const response = await fetch('/update_dct', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+        });
+    
+        const data = await response.json();
+    
+        // After the data is processed, update the image URL
+        const generatedImageElement = document.getElementById("generatedImage");
+        generatedImageElement.src = '/images/ERD.png';  // Use the relative URL
+    
+        alert("Image updated!");
+
+        /*
         await fetch('/update_dct', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -121,6 +138,7 @@
             alert(data.status); // e.g. "Updated dictionary successfully!"
         })
         .catch(err => console.error(err));
+        */
     }
     </script>
 </head>
@@ -131,11 +149,11 @@
     <button onclick="load_ner()">Load NER</button>
     <button onclick="clearCheckboxes()">Back</button>
     <label for="search"> Search: </label>
-    <input type="text" id= "search" placeholder = "search">
+    <input type="text" id= "search" placeholder = "Search">
     <button onclick= "search()"> Search </button>
     <div id="checkboxContainer"></div>
 
-    <img src="../images/ERD.png" class="erd-image" alt="No Diagram generated" /> <br>
+    <img id="generatedImage" src="" class="erd-image" alt="No Diagram generated" /> <br>
     <!-- A button to submit updated data to the server -->
     <button onclick="submitUpdatedData()">Submit</button>
 </body>
