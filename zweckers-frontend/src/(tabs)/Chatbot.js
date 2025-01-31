@@ -8,6 +8,7 @@ function Chatbot() {
         { isBot: true, name: 'botER', text: 'How may I help you today?' },
     ]);
     const [inputText, setInputText] = useState('');
+    const [isLoading, setIsLoading] = useState(false); // Track loading state
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
@@ -16,8 +17,9 @@ function Chatbot() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (inputText.trim()) {
-            // Add user message
+        if (inputText.trim() && !isLoading) { // Prevent sending if loading
+            setIsLoading(true); // Disable input while waiting
+
             setMessages(prev => [
                 ...prev,
                 { isBot: false, name: 'You', text: inputText },
@@ -27,21 +29,22 @@ function Chatbot() {
                 const response = await fetch("http://127.0.0.1:5000/get", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded", // Keep it simple
+                        "Content-Type": "application/x-www-form-urlencoded",
                     },
-                    body: new URLSearchParams({ msg: inputText }), // Send as form data
+                    body: new URLSearchParams({ msg: inputText }),
                 });
 
-                const botReply = await response.text(); // Get plain text
+                const botReply = await response.text();
 
                 setMessages(prev => [
                     ...prev,
-                    { isBot: true, name: 'botER', text: botReply }, // Store raw text
+                    { isBot: true, name: 'botER', text: botReply },
                 ]);
             } catch (error) {
                 console.error("Error fetching bot response:", error);
             }
 
+            setIsLoading(false); // Re-enable input after response
             setInputText('');
         }
     };
@@ -59,7 +62,8 @@ function Chatbot() {
                         key={index}
                         isBot={msg.isBot}
                         name={msg.name}
-                        text={<div dangerouslySetInnerHTML={{ __html: marked(msg.text) }} />} /> 
+                        text={<div dangerouslySetInnerHTML={{ __html: marked(msg.text) }} />}
+                    />
                 ))}
                 <div ref={messagesEndRef} />
             </div>
@@ -68,13 +72,14 @@ function Chatbot() {
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        placeholder="Message botER."
+                        placeholder={isLoading ? "Waiting for response..." : "Message botER."}
                         className="TextInput"
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
+                        disabled={isLoading} // Disable input when loading
                     />
-                    <button type="submit" style={{ background: 'none', border: 'none' }}>
-                        <ion-icon name="arrow-up-circle"></ion-icon>
+                    <button type="submit" style={{ background: 'none', border: 'none' }} disabled={isLoading}>
+                        <ion-icon name={isLoading ? "hourglass-outline" : "arrow-up-circle"}></ion-icon>
                     </button>
                 </form>
             </div>

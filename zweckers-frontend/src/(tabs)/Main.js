@@ -15,7 +15,9 @@ function Main() {
       {/* Conditional rendering for active view */}
       <div className="MainContent">
         {activeView === 'dashboard' && <Dashboard />}
-        {activeView === 'chatbot' && <Chatbot />}
+        {activeView === 'chatbot' && 
+          <Chatbot />
+        }
       </div>
     </div>
   );
