@@ -1,83 +1,73 @@
 import '../styles/Chatbot.css';
 import Message from '../components/Message.js';
 import { useState, useRef, useEffect } from 'react';
-
+import { marked } from "marked";
 
 function Chatbot() {
     const [messages, setMessages] = useState([
         { isBot: true, name: 'botER', text: 'How may I help you today?' },
     ]);
-    const [inputText, setInputText] = useState(''); // Manage input text
+    const [inputText, setInputText] = useState('');
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]); // Runs when messages update
+    }, [messages]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent page refresh
+        e.preventDefault();
         if (inputText.trim()) {
-            // Add user message to messages array
-            setMessages((prevMessages) => [
-                ...prevMessages,
+            // Add user message
+            setMessages(prev => [
+                ...prev,
                 { isBot: false, name: 'You', text: inputText },
             ]);
-    
-            // Make request to Flask backend to get bot's response
+
             try {
-                const response = await fetch("http://127.0.0.1:5000/get", {  // Use the local Flask URL
+                const response = await fetch("http://127.0.0.1:5000/get", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Content-Type": "application/x-www-form-urlencoded", // Keep it simple
                     },
-                    body: new URLSearchParams({
-                        msg: inputText,  // Send user input as form data
-                    }),
+                    body: new URLSearchParams({ msg: inputText }), // Send as form data
                 });
 
-                const botReply = await response.text();
-    
-                // Add bot response to messages after a delay
-                setMessages((prevMessages) => [
-                    ...prevMessages,
-                    { isBot: true, name: 'botER', text: botReply },
+                const botReply = await response.text(); // Get plain text
+
+                setMessages(prev => [
+                    ...prev,
+                    { isBot: true, name: 'botER', text: botReply }, // Store raw text
                 ]);
             } catch (error) {
                 console.error("Error fetching bot response:", error);
             }
-    
-            // Clear input field
+
             setInputText('');
         }
     };
 
     return (
         <div className="Container">
-            {/* Header */}
             <div>
                 <p className="Header">Your ER Diagram Questions, Answered Here</p>
                 <p className="Subtitles">Powered by OpenAI</p>
             </div>
 
-            {/* Chat Messages */}
             <div className="Messages">
                 {messages.map((msg, index) => (
                     <Message
                         key={index}
                         isBot={msg.isBot}
                         name={msg.name}
-                        text={msg.text}
-                    />
+                        text={<div dangerouslySetInnerHTML={{ __html: marked(msg.text) }} />} /> 
                 ))}
                 <div ref={messagesEndRef} />
             </div>
 
-            {/* Message Text Box */}
             <div className="TextBox">
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        id="url"
                         placeholder="Message botER."
                         className="TextInput"
                         value={inputText}
