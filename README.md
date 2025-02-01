@@ -18,8 +18,9 @@ This application is aimed to accelerate the analysis of relationships of any dat
 3. [📝 Notes](#-notes)
 4. [🖼️ Screenshots](#-screenshots)
 5. [🛠️ Technologies Used](#-technologies-used)
-6. [📜 License](#-license)
-7. [🤝 Contributing](#-contributing)
+6. [📹 Video Demonstration](#video-demonstration)
+7. [📜 License](#-license)
+8. [🤝 Contributing](#-contributing)
 
 ---
 
