@@ -1,7 +1,8 @@
-import Logo from '../assets/images/Logo.png';
-import '../styles/SidePanel.css';
+import Logo from "../assets/images/Logo.png";
+import "../styles/SidePanel.css";
+import { NavLink } from "react-router-dom";
 
-function SidePanel({ setActiveView, activeView }) {
+function SidePanel() {
   return (
     <div>
       {/* Side Panel Bar */}
@@ -13,22 +14,22 @@ function SidePanel({ setActiveView, activeView }) {
         </div>
 
         {/* Dashboard Button */}
-        <div
-          className={`Button ${activeView === 'dashboard' ? 'active' : ''}`}
-          onClick={() => setActiveView('dashboard')}
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) => (isActive ? "Button active" : "Button")}
         >
           <ion-icon name="analytics-outline"></ion-icon>
           <p className="ButtonName">Dashboard</p>
-        </div>
+        </NavLink>
 
         {/* Chatbot Button */}
-        <div
-          className={`Button ${activeView === 'chatbot' ? 'active' : ''}`}
-          onClick={() => setActiveView('chatbot')}
+        <NavLink
+          to="/chatbot"
+          className={({ isActive }) => (isActive ? "Button active" : "Button")}
         >
           <ion-icon name="chatbox-ellipses"></ion-icon>
           <p className="ButtonName">Chatbot</p>
-        </div>
+        </NavLink>
       </div>
     </div>
   );
