@@ -9,10 +9,6 @@ This application is aimed to accelerate the analysis of relationships of any dat
 2️⃣ **Integration of an Interactive Chatbot:** The application offers a chatbot that can take an image of either the ER diagram or a selected row of data and process it. Then, it waits for the user to enter something and hence query the dataset based on the visualized relationships or selected data.
 
 ---
-# 🌐 Live Website
-👉 View our live website [**here**](https://yourwebsite.com)!
-
----
 
 ## 📑 Table of Contents
 1. [🚀 Setup Instructions](#-setup-instructions)
@@ -105,7 +101,7 @@ The app should now be running on **http://localhost:3000**.
 
 ## 📝 Notes
 - **Switching Between Dashboard and Chatbot:** There is a known bug where switching between the Dashboard and Chatbot requires reloading the Dashboard to refresh the data.
--- **Searching of Entities:** Currently, the search function does not work so user must manually search using **"Ctrl+F** || **Cmd+F**
+- **Searching of Entities:** Currently, the search function does not work so user must manually search using **"Ctrl+F** || **Cmd+F**
 - Ensure **both backend servers** (NER Diagram and Chatbot) are running before using the app.
 
 ---
@@ -123,7 +119,7 @@ The app should now be running on **http://localhost:3000**.
 - **Frontend:** React.js ⚛️
 - **Backend:** Python (Flask/FastAPI) 🐍 || GroqAI (Model: deepseek-r1-distill-llama-70b) 🤖 || Firebase (Firestore) 🔥
 - **Visualisation:** PlantUML 🖥️
-- **Chatbot:** Groq (Groq API)  🤖
+- **Chatbot:** Groq (Groq API)  🤖 (Referenced Github Repository from: https://github.com/binary-hood/ChatBot-Starter)
 
 ---
 
