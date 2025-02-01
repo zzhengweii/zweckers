@@ -101,7 +101,7 @@ The app should now be running on **http://localhost:3000**.
 
 ## 📝 Notes
 - **Switching Between Dashboard and Chatbot:** There is a known bug where switching between the Dashboard and Chatbot requires reloading the Dashboard to refresh the data.
-- **Searching of Entities:** Currently, the search function does not work so user must manually search using **"Ctrl+F** || **Cmd+F**
+- **Searching of Entities:** Currently, the search function does not work so user must manually search using **"Ctrl+F** or **Cmd+F**
 - Ensure **both backend servers** (NER Diagram and Chatbot) are running before using the app.
 
 ---
