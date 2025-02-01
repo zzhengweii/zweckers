@@ -117,7 +117,7 @@ The app should now be running on **http://localhost:3000**.
 
 ## 🛠️ Technologies Used
 - **Frontend:** React.js ⚛️
-- **Backend:** Python (Flask/FastAPI) 🐍 || GroqAI (Model: deepseek-r1-distill-llama-70b) 🤖
+- **Backend:** Python (Flask/FastAPI) 🐍 || GroqAI (Model: deepseek-r1-distill-llama-70b) 🤖 || Firebase (Firestore) 🔥
 - **Visualisation:** PlantUML 🖥️
 - **Chatbot:** OpenAI (OpenAI API)  🤖
 
