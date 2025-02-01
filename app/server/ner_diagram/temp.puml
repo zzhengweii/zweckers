@@ -1,21 +1,17 @@
 @startuml
-entity Starbucks {             
+entity Hirotake_Yano {             
 type: String 
 } 
-entity federal_labor_law {             
+entity Daiso {             
 type: String 
 } 
-entity National_Labor_Relations_Board {             
+entity Daiso_Industries_Company_Limited {             
 type: String 
 } 
-entity Mara_Louise_Anzalone {             
+entity dollar_shop_business_model {             
 type: String 
 } 
-entity employees {             
-type: String 
-} 
-Starbucks -> federal_labor_law : violated
-National_Labor_Relations_Board -> Starbucks : issued rulings against
-Mara_Louise_Anzalone -> National_Labor_Relations_Board : judge for
-Starbucks -> employees : offered wage increases and benefits to
+Hirotake_Yano -> Daiso : founded
+Hirotake_Yano -> Daiso_Industries_Company_Limited : former president of
+Hirotake_Yano -> dollar_shop_business_model : pioneer of
 @enduml

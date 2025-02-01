@@ -6,7 +6,6 @@ from itertools import combinations
 from flask import Flask, jsonify,render_template, request, send_from_directory
 from groq import Groq
 import os
-from dotenv import load_dotenv
 import re
 import json
 from plantuml import PlantUML
@@ -20,10 +19,6 @@ df = pd.read_csv("ner_graph.csv")
 #df = []
 app = Flask(__name__)
 ### Pre-loading the excel
-env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.env'))
-load_dotenv(env_path)
-api_key = os.getenv("DEEPSEEK_API_KEY")
-
 def pre_load_excel(excel):
     # Load English language model
     nlp = spacy.load("en_core_web_sm")
@@ -159,7 +154,7 @@ def update_dct():
     
 
 def get_relationship(PROMPT, model="deepseek-r1-distill-llama-70b", MaxToken=5000, outputs=2, temperature=0.7):
-    client = Groq(api_key="DEEPSEEK_API_KEY")
+    client = Groq(api_key="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")
     response = client.chat.completions.create(
         model=model,
         messages=[

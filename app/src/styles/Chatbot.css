@@ -1,95 +1,94 @@
-@import "../styles/fonts.css";
+@import '../styles/fonts.css';
 
 .Container {
-  margin-left: 20px;
-  position: relative;
+    margin-left: 20px;
+    position: relative;
 }
 
 .Header {
-  font-family: "Josefin-Sans-Bold";
-  font-size: 36px;
-  color: #434ce5;
+    font-family: 'Josefin-Sans-Bold';
+    font-size: 36px;
+    color: #434ce5;
 }
 .Subtitles {
-  margin-top: -20px;
-  font-family: "Josefin-Sans-Light";
-  font-size: 20px;
+    margin-top: -20px;
+    font-family: 'Josefin-Sans-Light';
+    font-size: 20px;
 }
 .Messages {
-  overflow: auto;
-  max-height: 76vh;
-  padding: 10px;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  padding-bottom: 100px;
-  scrollbar-width: none;
+    overflow: auto;
+    max-height: 50vh;
+    padding: 10px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding-bottom: 100px;
+    /* scrollbar-width: none; */
 }
 .TextBox {
-  flex-direction: row;
-  display: flex;
-  justify-content: space-between; /* Spread the input and button across the container */
-  align-items: center;
-  background-color: #e6e4e4;
-  height: 70px;
-  width: 80vw;
-  border-radius: 10px;
-  bottom: 20px;
-  position: fixed;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between; /* Spread the input and button across the container */
+    align-items: center;
+    background-color: #e6e4e4;
+    height: 70px;
+    width: 80vw;
+    border-radius: 10px;
+    bottom: 20px;
+    position: fixed;
 }
 
 .TextBox form {
-  display: flex;
-  width: 100%; /* Ensure the form takes up the full width */
-  align-items: center;
-  border-radius: 10px;
+    display: flex;
+    width: 100%; /* Ensure the form takes up the full width */
+    align-items: center;
+    border-radius: 10px;
 }
 
 .TextInput {
-  border-width: 0px;
-  background-color: #e6e4e4;
-  font-family: "Josefin-Sans-Regular";
-  font-size: 15px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  width: 100%;
-  padding-left: 10px;
-  border-radius: 10px;
-  margin-left: 10px;
+    border-width: 0px;
+    background-color: #e6e4e4;
+    font-family: 'Josefin-Sans-Regular';
+    font-size: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    padding-left: 10px;
+    border-radius: 10px;
 }
 
 .TextBox ion-icon {
-  font-size: 48px;
-  color: #434ce5;
-  align-self: center;
-  justify-self: center;
-  margin-left: 10px; /* Add some space between the input and the icon */
+    font-size: 48px;
+    color: #434ce5;
+    align-self: center;
+    justify-self: center;
+    margin-left: 10px; /* Add some space between the input and the icon */
 }
 
 .ChatNameInput {
-  background-color: #e6e4e4;
-  border-width: 0px;
-  border-radius: 5px;
-  font-family: "Josefin-Sans-Regular";
-  font-size: 15px;
-  padding: 5px;
+    background-color: #e6e4e4;
+    border-width: 0px;
+    border-radius: 5px;
+    font-family: 'Josefin-Sans-Regular';
+    font-size: 15px;
+    padding: 5px; 
 }
 
 .SubmitButton {
-  cursor: pointer;
-  border-radius: 5px;
-  border-width: 0px;
-  background-color: #e6e4e4;
-  font-family: "Josefin-Sans-Bold";
-  font-size: 15px;
-  padding: 5px;
-  margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border-width: 0px;
+    background-color: #e6e4e4;
+    font-family: 'Josefin-Sans-Bold';
+    font-size: 15px;
+    padding: 5px; 
+    margin-left: 10px;
 }
 
 .DeleteChatButton {
-  font-family: "Josefin-Sans-Light";
-  cursor: pointer;
-  margin-top: 10px;
-  font-size: 15px;
-  margin-left: 0px;
+    font-family: 'Josefin-Sans-Light';
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 15px;
+    margin-left: 0px;
 }
