@@ -7,10 +7,10 @@ app = Flask(__name__)
 CORS(app)
 
 # API Key Set-Up
-groq_api_key = os.getenv("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") 
+api_key = os.getenv("DEEPSEEK_API_KEY") 
 
 # Load Groq API Key from environment
-client = Groq(api_key="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")
+client = Groq(api_key="api_key")
 
 # Define your custom prompt
 PROMPT = "Your input text or content that will be processed"
