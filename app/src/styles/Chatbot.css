@@ -31,7 +31,7 @@
     justify-content: space-between; /* Spread the input and button across the container */
     align-items: center;
     background-color: #e6e4e4;
-    height: 87px;
+    height: 70px;
     width: 80vw;
     border-radius: 10px;
     bottom: 20px;
@@ -49,11 +49,11 @@
     border-width: 0px;
     background-color: #e6e4e4;
     font-family: 'Josefin-Sans-Regular';
-    font-size: 20px;
-    padding-top: 34px;
-    padding-bottom: 34px;
+    font-size: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 100%;
-    padding-left: 20px;
+    padding-left: 10px;
     border-radius: 10px;
 }
 
@@ -63,4 +63,32 @@
     align-self: center;
     justify-self: center;
     margin-left: 10px; /* Add some space between the input and the icon */
+}
+
+.ChatNameInput {
+    background-color: #e6e4e4;
+    border-width: 0px;
+    border-radius: 5px;
+    font-family: 'Josefin-Sans-Regular';
+    font-size: 15px;
+    padding: 5px; 
+}
+
+.SubmitButton {
+    cursor: pointer;
+    border-radius: 5px;
+    border-width: 0px;
+    background-color: #e6e4e4;
+    font-family: 'Josefin-Sans-Bold';
+    font-size: 15px;
+    padding: 5px; 
+    margin-left: 10px;
+}
+
+.DeleteChatButton {
+    font-family: 'Josefin-Sans-Light';
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 15px;
+    margin-left: 0px;
 }
