@@ -11,7 +11,6 @@ CORS(app)
 env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.env'))
 load_dotenv(env_path)
 api_key = os.getenv("DEEPSEEK_API_KEY")
-print("DEEPSEEK_API_KEY:", openai.api_key)
 
 
 @app.route("/", methods=["GET", "POST"])
