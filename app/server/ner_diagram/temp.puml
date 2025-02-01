@@ -2,7 +2,34 @@
 entity Microsoft {             
 type: String 
 } 
+entity The_Guardian {             
+type: String 
+} 
+entity Ross {             
+type: String 
+} 
+entity CoreWeave {             
+type: String 
+} 
+entity Brad_Smith {             
+type: String 
+} 
+entity Activision {             
+type: String 
+} 
+entity Jamie_Meyers {             
+type: String 
+} 
+entity G42 {             
+type: String 
+} 
 entity Mistral_AI {             
+type: String 
+} 
+entity NUHS {             
+type: String 
+} 
+entity apoQlar {             
 type: String 
 } 
 entity Hirotake_Yano {             
@@ -11,7 +38,16 @@ type: String
 entity Daiso {             
 type: String 
 } 
-Microsoft -> Mistral_AI : invested in
-Microsoft -> Mistral_AI : partnered with
-Hirotake_Yano -> Daiso : founded
+Microsoft -> Microsoft : deactivated polls
+The_Guardian -> Microsoft : criticized
+Ross -> Microsoft : commented on monopoly
+CoreWeave -> Microsoft : competes with
+Brad_Smith -> Microsoft : commented on deal
+Microsoft -> Activision : takeover
+Jamie_Meyers -> Microsoft : commented on growth
+Microsoft -> G42 : invested
+Microsoft -> Mistral_AI : partnered
+NUHS -> Microsoft : collaborated
+apoQlar -> Microsoft : collaborated
+Hirotake_Yano -> Daiso : founder
 @enduml
