@@ -2,11 +2,11 @@
 
 This application is aimed to accelerate the analysis of relationships of any data with an interactive ER diagram and will have salient features including:
 
-1. **Relationship Extraction:** Application automatically extracts all the r/s from the dataset and presents complete insight into how entities are interconnected.
+1️⃣ **Relationship Extraction:** Application automatically extracts all the r/s from the dataset and presents complete insight into how entities are interconnected.
    
-2. **Dynamic Filtering:** Relationships can be filtered by selecting specific entities through the use of checkboxes, and upon selecting, the application updates the ER diagram on the fly to show the relevant relationships for better clarity and focus.
-   
-3. **Integration of an Interactive Chatbot:** The application offers a chatbot that can take an image of either the ER diagram or a selected row of data and process it. Then, it waits for the user to enter something and hence query the dataset based on the visualized relationships or selected data.
+2️⃣ **Dynamic Filtering:** Relationships can be filtered by selecting specific entities through the use of checkboxes, and upon selecting, the application updates the ER diagram on the fly to show the relevant relationships for better clarity and focus.
+
+2️⃣ **Integration of an Interactive Chatbot:** The application offers a chatbot that can take an image of either the ER diagram or a selected row of data and process it. Then, it waits for the user to enter something and hence query the dataset based on the visualized relationships or selected data.
 
 
 ---
