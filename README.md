@@ -77,7 +77,7 @@ The app should now be running on **http://localhost:3000**.
 - Click **"Load NER"** to load the entities.
 - Select entities (e.g., **"Starbucks"** and **"National Labor Relations Board Judge"**).
 - Press **"Submit"** to generate the ER diagram.
-- Click **"Back"** to clear selections and start over.
+- Click **"Clear all"** to clear selections and start over.
 
 ### 💬 Chatbot
 - Query the relationships visualised in the Dashboard.
