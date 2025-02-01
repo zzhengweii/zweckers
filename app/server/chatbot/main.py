@@ -7,14 +7,7 @@ from groq import Groq
 app = Flask(__name__)
 CORS(app)
 
-# API Key Set-Up
-groq_api_key = os.getenv("DEEPSEEK_API_KEY") 
 
-# Load Groq API Key from environment
-env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.env'))
-load_dotenv(env_path)
-api_key = os.getenv("DEEPSEEK_API_KEY")
-client = Groq(api_key=api_key)
 
 # Define your custom prompt
 PROMPT = "Your input text or content that will be processed"
@@ -68,6 +61,8 @@ def get_Chat_response(text):
     """
 
     # Call the Groq API with the prompt
+    client = Groq(api_key="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"
+)
     response = client.chat.completions.create(
         model="deepseek-r1-distill-llama-70b",  # You can change the model to the one you're using
         messages=[
