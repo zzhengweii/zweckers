@@ -1,10 +1,25 @@
 @startuml
-entity Microsoft {             
+entity European_Union_regulators {             
 type: String 
 } 
-entity Mistral_AI {             
+entity Meta {             
 type: String 
 } 
-Microsoft -> Mistral_AI : Partnership
-Microsoft -> Mistral_AI : Investment
+entity Sun_Xueling {             
+type: String 
+} 
+entity Metas_Oversight_Board {             
+type: String 
+} 
+entity Donna_Dawley {             
+type: String 
+} 
+entity Hamas {             
+type: String 
+} 
+European_Union_regulators -> Meta : fined
+Sun_Xueling -> Meta : criticized
+Metas_Oversight_Board -> Meta : criticized policies
+Donna_Dawley -> Meta : filed lawsuit against
+Meta -> Hamas : designated as dangerous
 @enduml

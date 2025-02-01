@@ -2,19 +2,25 @@ import '../styles/Chatbot.css';
 import Message from '../components/Message.js';
 import { useState, useRef, useEffect } from 'react';
 import { marked } from "marked";
+import { db } from '../config/firebase.js';
+import { collection, doc, addDoc, serverTimestamp, getDocs, deleteDoc, getDoc, setDoc } from 'firebase/firestore';
 
 function Chatbot() {
     const [messages, setMessages] = useState([
         { isBot: true, name: 'botER', text: 'How may I help you today?' },
+        { isBot: false, name: 'You', text: 'User Created' },
     ]);
     const [inputText, setInputText] = useState('');
     const [isLoading, setIsLoading] = useState(false); // Track loading state
     const messagesEndRef = useRef(null);
+    //const { chatroomId } = useParams(); not sure if routing is needed yet
+    const [chatroomId, setChatroomId] = useState("");
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    // nid to implement add message logic here too 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (inputText.trim() && !isLoading) { // Prevent sending if loading
@@ -25,6 +31,7 @@ function Chatbot() {
                 { isBot: false, name: 'You', text: inputText },
             ]);
 
+            addMessage(chatroomId,'UserMessages',inputText)
             try {
                 const response = await fetch("http://127.0.0.1:5000/get", {
                     method: "POST",
@@ -35,11 +42,12 @@ function Chatbot() {
                 });
 
                 const botReply = await response.text();
-
+                
                 setMessages(prev => [
                     ...prev,
                     { isBot: true, name: 'botER', text: botReply },
                 ]);
+                addMessage(chatroomId, 'BotMessages', botReply)
             } catch (error) {
                 console.error("Error fetching bot response:", error);
             }
@@ -49,6 +57,136 @@ function Chatbot() {
         }
     };
 
+
+    const handleChatroomIdSubmit = async (e) => {
+        e.preventDefault();
+        const chatroomName = chatroomId.trim();
+    
+        if (!chatroomName) return;
+    
+        try {
+            const chatroomRef = doc(db, 'Chatroom', chatroomName);
+            const chatroomSnapshot = await getDoc(chatroomRef);
+    
+            if (chatroomSnapshot.exists()) {
+                // If chatroom exists, fetch messages
+                await fetchMessages(chatroomName);
+            } else {
+                // If chatroom does not exist, create it
+                await setDoc(chatroomRef, {
+                    createdAt: serverTimestamp()
+                });
+
+                const botMessagesRef = collection(chatroomRef, 'BotMessages');
+                const userMessagesRef = collection(chatroomRef, 'UserMessages');
+
+                await Promise.all([
+                    addDoc(botMessagesRef, { content: "How may I help you today?", createdAt: serverTimestamp() }),
+                    addDoc(userMessagesRef, { content: "User Created", createdAt: serverTimestamp() })
+                ]);
+            }
+    
+            setChatroomId(chatroomName);
+        } catch (error) {
+            console.error("Error checking/creating chatroom:", error);
+        }
+    };
+    
+    const fetchMessages = async (chatroomId) => {
+        try {
+          const chatroomRef = doc(db, 'Chatroom', chatroomId);
+          const botMessagesRef = collection(chatroomRef, 'BotMessages');
+          const userMessagesRef = collection(chatroomRef, 'UserMessages');
+  
+          const botSnapshot = await getDocs(botMessagesRef);
+          const userSnapshot = await getDocs(userMessagesRef);
+
+        const botMessages = botSnapshot.docs.map(doc => ({
+            isBot:true,
+            name: 'botER',
+            text: doc.data().content,
+            createdAt: doc.data().createdAt?.toMillis?.() || 0 
+        }));
+
+        const userMessages = userSnapshot.docs.map(doc => ({
+            isBot:false,
+            name: 'You',
+            text: doc.data().content,
+            createdAt: doc.data().createdAt?.toMillis?.() || 0 
+        }));
+
+        const allMessages = [...botMessages, ...userMessages].sort(
+            (a, b) => a.createdAt - b.createdAt //not sure if my ascending or descending
+        );
+
+        setMessages(allMessages);
+        return allMessages;
+        } catch (error) {
+          console.error("Error fetching messages:", error);
+          return [];
+        }
+      };
+    
+      useEffect(() => {
+        const fetchChatroomMessages = async () => {
+            try {
+                if (!chatroomId) return; // Ensure chatroomId is available
+    
+                await fetchMessages(chatroomId);
+            } catch (error) {
+                console.error("Error fetching chatroom messages:", error);
+            }
+        };
+    
+        fetchChatroomMessages();
+    }, [chatroomId]);
+    
+    
+      const addMessage = async (chatroomId, collectionName, content) => {
+        try {
+          const chatroomRef = doc(db, 'Chatroom', chatroomId);
+          const messagesRef = collection(chatroomRef, collectionName);
+          await addDoc(messagesRef, {
+            content: content,
+            createdAt: serverTimestamp()
+          });
+      
+          //await fetchMessages(chatroomId);
+        } catch (error) {
+          console.error("Error adding message:", error);
+        }
+      };
+    
+
+      const deleteChat = async (chatroomId) => {
+        try {
+          if (!chatroomId ) {
+            throw new Error("Chatroom is missing");
+          }
+          const chatroomRef = doc(db, 'Chatroom', chatroomId);
+            const botMessagesRef = collection(chatroomRef, 'BotMessages');
+            const userMessagesRef = collection(chatroomRef, 'UserMessages');
+
+            const [botSnapshot, userSnapshot] = await Promise.all([
+                getDocs(botMessagesRef),
+                getDocs(userMessagesRef),
+            ]);
+
+            const deletePromises = [
+                ...botSnapshot.docs.map(doc => deleteDoc(doc.ref)),
+                ...userSnapshot.docs.map(doc => deleteDoc(doc.ref)),
+            ];
+
+            await Promise.all(deletePromises);
+
+            setMessages([]);
+        } catch (error) {
+          console.error("Error deleting message:", error);
+        }
+      };
+    
+
+    
     return (
         <div className="Container">
             <div>
@@ -62,7 +200,7 @@ function Chatbot() {
                         key={index}
                         isBot={msg.isBot}
                         name={msg.name}
-                        text={<div dangerouslySetInnerHTML={{ __html: marked(msg.text) }} />}
+                        text={<div>{msg.isBot ? marked(msg.text) : msg.text}</div>}
                     />
                 ))}
                 <div ref={messagesEndRef} />
@@ -82,6 +220,26 @@ function Chatbot() {
                         <ion-icon name={isLoading ? "hourglass-outline" : "arrow-up-circle"}></ion-icon>
                     </button>
                 </form>
+            </div>
+
+            <div className="ChatName">
+                <form onSubmit={(e) => handleChatroomIdSubmit(e)}>
+                        <input
+                            type="text"
+                            placeholder={isLoading ? "Waiting for response..." : "Enter Chatname"}
+                            className="TextInput"
+                            value={chatroomId}
+                            onChange={(e) => setChatroomId(e.target.value)}
+                            disabled={isLoading} // Disable input when loading
+                        />
+                        <button type="submit" style={{ background: 'none', border: 'none' }} disabled={isLoading}>
+                            Submit
+                        </button>
+                    </form>
+            </div>
+
+            <div className="DeleteChat">
+                <button type = "button" onClick = {() => deleteChat(chatroomId)} style={{ background: 'none', border: 'none' }} disabled={isLoading}> Clear Chat </button>
             </div>
         </div>
     );
