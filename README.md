@@ -66,7 +66,6 @@ Before running the chatbot backend, you **must** set up your **DeepSeek API key*
 1. Navigate to the `server` folder:  
 ```bash
 cd server
-python main.py
 ```
 2. Create a .env folder and get your Deepseek API and put it in your .env file
 ```bash
