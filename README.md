@@ -24,8 +24,8 @@ Follow these steps to set up and run the app locally:
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone git@github.com:clarequek/zweckers.git
+cd .../zweckers
 ```
 
 ### 2️⃣ Activate Virtual Environment
