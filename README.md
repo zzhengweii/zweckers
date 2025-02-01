@@ -95,10 +95,10 @@ The app should now be running on **http://localhost:3000**.
 
 ## 🖼️ Screenshots
 ### 📊 Dashboard
-*(Dashboard Screenshot Here)*
+![Dashboard Screenshot](screenshots/dashboard.png)
 
 ### 💬 Chatbot
-*(Chatbot Screenshot Here)*
+![Chatbot Screenshot](screenshots/chatbot.png)  
 
 ---
 
