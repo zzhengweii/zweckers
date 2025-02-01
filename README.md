@@ -31,7 +31,7 @@ This application is aimed to accelerate the analysis of relationships of any dat
 
 Follow these steps to set up and run the app locally:
 
-## ⚠️ Preprerequisites
+## ⚠️ Prerequisites
 Make sure you install anaconda first. The link can be found here: https://docs.anaconda.com/anaconda/install/
 
 ### 1️⃣ Clone the Repository
@@ -99,6 +99,7 @@ The app should now be running on **http://localhost:3000**.
 - Query the relationships visualised in the Dashboard.
 - Create a new chat by naming the chat and clicking **"Submit"**.
 - Start chatting (e.g., **"What is the relationship between Starbucks and National Labor Relations Board Judge?"**).
+- Clear History by clicking **Clear Chat**
 
 ---
 
@@ -122,7 +123,7 @@ The app should now be running on **http://localhost:3000**.
 - **Frontend:** React.js ⚛️
 - **Backend:** Python (Flask/FastAPI) 🐍 || GroqAI (Model: deepseek-r1-distill-llama-70b) 🤖 || Firebase (Firestore) 🔥
 - **Visualisation:** PlantUML 🖥️
-- **Chatbot:** OpenAI (OpenAI API)  🤖
+- **Chatbot:** Groq (Groq API)  🤖
 
 ---
 
