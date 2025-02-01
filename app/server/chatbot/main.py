@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS  # For React communication with Flask
 import os
+from dotenv import load_dotenv
 from groq import Groq
 
 app = Flask(__name__)
@@ -10,7 +11,10 @@ CORS(app)
 groq_api_key = os.getenv("DEEPSEEK_API_KEY") 
 
 # Load Groq API Key from environment
-client = Groq(api_key="gsk_zqZs3XB1MvFLuMygGnNXWGdyb3FYUxFSdCjSXH8IRumtMHBi6mv")
+env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.env'))
+load_dotenv(env_path)
+api_key = os.getenv("DEEPSEEK_API_KEY")
+client = Groq(api_key=api_key)
 
 # Define your custom prompt
 PROMPT = "Your input text or content that will be processed"

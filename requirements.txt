@@ -5,7 +5,7 @@ python-dotenv
 ipykernel
 pandas
 numpy
-flask 
+flask_cors 
 networkx 
 spacy
 openai
