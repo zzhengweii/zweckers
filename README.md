@@ -48,23 +48,14 @@ cd app
 npm install
 ```
 
-### 5️⃣ Run Backend Servers  
-
-#### Backend 1 (NER Diagram) - Requires **GroqAI API Key**  
-Before running the backend, ensure you include your **GroqAI API key** in `main.py` in the `get_relationship` function.  
-```bash
-cd server/ner_diagram
-python main.py
-```
-
-#### Backend 2 (Chatbot):
-This backend powers the chatbot functionality, allowing users to query relationships between entities.  
+### 5️⃣ Run Backend Servers 
 
 ### 🔑 API Key Setup  
 Before running the chatbot backend, you **must** set up your **DeepSeek API key**. 
-1. Navigate to the `chatbot` folder:  
+
+1. Navigate to the `server` folder:  
 ```bash
-cd ../chatbot
+cd server
 python main.py
 ```
 2. Create a .env folder and get your Deepseek API and put it in your .env file
@@ -72,6 +63,17 @@ python main.py
    echo "DEEPSEEK_API_KEY=your_deepseek_api_key_here" > .env
 ```
 
+#### Backend 1 (NER Diagram): 
+```bash
+cd ner_diagram
+python main.py
+```
+
+#### Backend 2 (Chatbot):
+```bash
+cd ../chatbot
+python main.py
+```
 ### 6️⃣ Start the Frontend App
 ```bash
 cd ../../app
