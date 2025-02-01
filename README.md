@@ -49,6 +49,7 @@ conda activate venv
 ### 3️⃣ Install Python Libraries
 ```bash
 pip install -r requirements.txt
+python -m spacy download en_core_web_sm
 ```
 
 ### 4️⃣ Install Node.js Dependencies
