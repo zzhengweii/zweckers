@@ -111,7 +111,7 @@ The app should now be running on **http://localhost:3000**.
 ---
 
 ## 📜 License
-This project is licensed under the **MIT License**. See LICENSE for details.
+This project is licensed under the **MIT License**. See [MIT License](LICENSE) for details.
 
 ---
 
