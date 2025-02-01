@@ -5,16 +5,15 @@ This app allows users to visualize relationships between entities using an ER di
 ---
 
 ## 📑 Table of Contents
-1. [🚀 Setup Instructions](#setup-instructions)
-2. [🛠️ App Usage](#app-usage)
-   - [📊 Dashboard](#dashboard)
-   - [💬 Chatbot](#chatbot)
-3. [📝 Notes](#notes)
-4. [🖼️ Screenshots](#screenshots)
-5. [🛠️ Technologies Used](#technologies-used)
-6. [📜 License](#license)
-7. [🤝 Contributing](#contributing)
-8. [📧 Contact](#contact)
+1. [🚀 Setup Instructions](-#setup-instructions)
+2. [🛠️ App Usage](-#app-usage)
+   - [📊 Dashboard](-#dashboard)
+   - [💬 Chatbot](-#chatbot)
+3. [📝 Notes](-#notes)
+4. [🖼️ Screenshots](-#screenshots)
+5. [🛠️ Technologies Used](-#technologies-used)
+6. [📜 License](-#license)
+7. [🤝 Contributing](-#contributing)
 
 ---
 
