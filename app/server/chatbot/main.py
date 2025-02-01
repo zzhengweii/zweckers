@@ -7,8 +7,8 @@ app = Flask(__name__)
 CORS(app)
 
 # API Key Set-Up
-openai.api_key = os.getenv("OPENAI_API_KEY")
-print("OPENAI_API_KEY:", openai.api_key)
+openai.api_key = os.getenv("DEEPSEEK_API_KEY")
+print("DEEPSEEK_API_KEY:", openai.api_key)
 
 
 @app.route("/", methods=["GET", "POST"])
