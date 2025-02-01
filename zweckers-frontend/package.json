@@ -9,6 +9,8 @@
     "cra-template": "1.2.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "firebase": "^11.2.0",
+    "groq": "^3.72.1",
     "ionicons": "^7.4.0",
     "marked": "^15.0.6",
     "openai": "^4.81.0",
