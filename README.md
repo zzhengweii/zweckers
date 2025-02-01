@@ -48,18 +48,32 @@ cd app
 npm install
 ```
 
-### 5️⃣ Run Backend Servers
-#### Backend 1 (NER Diagram):
+### 5️⃣ Run Backend Servers 
+
+### 🔑 API Key Setup  
+Before running the chatbot backend, you **must** set up your **DeepSeek API key**. 
+
+1. Navigate to the `server` folder:  
 ```bash
-cd server/ner_diagram
+cd server
 python main.py
 ```
+2. Create a .env folder and get your Deepseek API and put it in your .env file
+```bash
+   echo "DEEPSEEK_API_KEY=your_deepseek_api_key_here" > .env
+```
+
+#### Backend 1 (NER Diagram): 
+```bash
+cd ner_diagram
+python main.py
+```
+
 #### Backend 2 (Chatbot):
 ```bash
 cd ../chatbot
 python main.py
 ```
-
 ### 6️⃣ Start the Frontend App
 ```bash
 cd ../../app
