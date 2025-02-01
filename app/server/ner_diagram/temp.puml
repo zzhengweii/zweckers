@@ -1,0 +1,17 @@
+@startuml
+entity Microsoft {             
+type: String 
+} 
+entity Mistral_AI {             
+type: String 
+} 
+entity Hirotake_Yano {             
+type: String 
+} 
+entity Daiso {             
+type: String 
+} 
+Microsoft -> Mistral_AI : invested in
+Microsoft -> Mistral_AI : partnered with
+Hirotake_Yano -> Daiso : founded
+@enduml

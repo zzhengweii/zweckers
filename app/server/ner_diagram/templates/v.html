@@ -1,0 +1,176 @@
+<html>
+<head>
+    <title>NER Entities</title>
+    <style>
+        .scroll-container {
+            height: 200px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .erd-image {
+            width: 400px;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        
+    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='v.css') }}">
+    <script>
+    let originalData = {};
+    let allCheckboxes = [];
+
+    // Fetch dictionary from Python and display as checkboxes
+    async function loadCheckboxes() {
+        const response = await fetch('/get_dct');
+        const data = await response.json();
+        originalData = data; // store a local copy
+        renderCheckboxes(data);
+    }
+
+    // Fetch dictionary from Python (same or different endpoint) and display
+    async function load_ner() {
+        const response = await fetch('/load_ner');
+        const data = await response.json();
+        originalData = data; // store a local copy
+        renderCheckboxes(data);
+    }
+
+    // Render the checkboxes according to the data structure
+    function renderCheckboxes(data) {
+    const container = document.getElementById("checkboxContainer");
+    container.innerHTML = "";
+    allCheckboxes = [];
+
+    for (let entityType in data) {
+        // Create a wrapper for each entity type
+        const entityContainer = document.createElement("div");
+        entityContainer.classList.add("entity-container"); // Assign a CSS class
+        container.appendChild(entityContainer);
+
+        // Create heading
+        const heading = document.createElement("h3");
+        heading.innerText = entityType;
+        entityContainer.appendChild(heading);
+
+        // Scrollable area for checkboxes
+        const subContainer = document.createElement("div");
+        subContainer.classList.add("scroll-container");
+        entityContainer.appendChild(subContainer);
+
+        const entityObj = data[entityType];
+        for (let entityName in entityObj) {
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = entityObj[entityName];
+            checkbox.dataset.entityType = entityType;
+            checkbox.dataset.entityName = entityName;
+
+            const label = document.createElement("label");
+            label.innerText = entityName;
+
+            subContainer.appendChild(checkbox);
+            subContainer.appendChild(label);
+            subContainer.appendChild(document.createElement("br"));
+
+            allCheckboxes.push({ checkbox, entityName, subContainer });
+        }
+    }
+}
+
+
+    // Clear container but keep original data in memory
+    function clearCheckboxes() {
+        document.getElementById("checkboxContainer").innerHTML = "";
+    }
+    /*
+    function search() {
+        const searchTerm = document.getElementById("search").value.toLowerCase();
+
+        // Filter the checkboxes based on the search term
+        allCheckboxes.forEach(item => {
+            const checkbox = item.checkbox;
+            const entityName = item.entityName.toLowerCase();
+
+            // Show or hide the checkbox based on whether it matches the search term
+            if (entityName.includes(searchTerm)) {
+                item.subContainer.style.display = "block";  // Show
+            } else {
+                item.subContainer.style.display = "none";   // Hide
+            }
+        });
+    }
+*/
+    // Collect all current checkbox states, build JSON, POST to server
+    async function submitUpdatedData() {
+        // Rebuild dictionary to mirror original nested structure
+        // i.e. { ORG: { "NLRB": true, "Starbucks": false, ...}, PERSON: {...}, ... }
+        let updatedData = JSON.parse(JSON.stringify(originalData)); // a deep copy
+
+        // Gather each checkbox state
+        const allCheckboxes = document.querySelectorAll('#checkboxContainer input[type="checkbox"]');
+        allCheckboxes.forEach(cb => {
+            const type = cb.dataset.entityType;
+            const name = cb.dataset.entityName;
+            updatedData[type][name] = cb.checked;
+        });
+
+        // Send to Flask
+
+        const response = await fetch('/update_dct', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+        });
+    
+        const data = await response.json();
+    
+        // After the data is processed, update the image URL
+        const generatedImageElement = document.getElementById("generatedImage");
+        generatedImageElement.src = '/images/ERD.png';  // Use the relative URL
+    
+        alert("Image updated!");
+
+        /*
+        await fetch('/update_dct', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert(data.status); // e.g. "Updated dictionary successfully!"
+        })
+        .catch(err => console.error(err));
+        */
+    }
+    </script>
+</head>
+<body class="body">
+    <h1 class="title">NER Entities</h1>
+
+    <div class="topContainer">
+        <div class="buttonContainer">
+            <button class="button" onclick=loadCheckboxes()>Show Checkboxes</button>
+            <button class="button" load_ner()>Load NER</button>
+            <button class="button" onclick="clearCheckboxes()">Clear All</button>
+        </div>
+        <div class="searchContainer">
+            <label class="label"for="search"> Search: </label>
+            <input class="inputText" type="text" id= "search" placeholder = "Search">
+            <button class="button" onclick= "search()"> Search </button>
+        </div>
+    </div>
+
+    <div class="checkboxContainer" id="checkboxContainer"></div>
+
+    <!-- A button to submit updated data to the server -->
+    <button class="button" onclick="submitUpdatedData()">Submit</button>
+
+    <div class="image-container">
+        <img class="image" id="generatedImage" src="" class="erd-image" alt="No diagram generated" /> <br>
+    </div>
+
+</body>
+</html>

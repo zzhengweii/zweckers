@@ -1,0 +1,53 @@
+@import '../styles/fonts.css';
+
+.Board {
+    width: 100px;
+    height: 95.4vh;
+    padding: 20px;
+    justify-items: center;
+    width: 88vw;
+    align-content: center;
+    border-width: 0px;
+}
+
+.BoardHeader {
+    font-family: 'Josefin-Sans-Bold' ;
+    font-size: 48px;
+    text-align: center;
+    height: 96px;
+    width: 703px;
+}
+.BoardSubtitle {
+    font-family: 'Josefin-Sans-Light' ;
+    font-size: 24px;
+    text-align: center;
+}
+.FileName {
+    font-family: 'Josefin-Sans-Bold' ;
+    font-size: 24px;
+    text-align: center;
+    color: #434ce4;
+    text-decoration: underline;
+}
+.UrlName {
+    font-family: 'Josefin-Sans-Bold' ;
+    font-size: 24px;
+    text-align: center;
+    color: #434ce4;
+    text-decoration: underline;
+}
+.LetsGoButton {
+    font-family: 'Josefin-Sans-Bold' ;
+    font-size: 36px;
+    color: #ffffff;
+    height: 70px;
+    background-color: #434ce4;
+    border-width: 0px;
+    border-radius: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.LetsGoButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

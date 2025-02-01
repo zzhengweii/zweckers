@@ -1,0 +1,14 @@
+pandas
+numpy
+flask 
+networkx 
+spacy
+openai
+groq
+matplotlib
+plantuml
+openpyxl
+flask_cors
+
+#nid run this also python -m spacy download en_core_web_sm
+#plantuml
