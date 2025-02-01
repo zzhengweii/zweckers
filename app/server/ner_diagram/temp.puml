@@ -5,17 +5,18 @@ type: String
 entity federal_labor_law {             
 type: String 
 } 
-entity National_Labor_Relations_Board {             
+entity National_Labor_Relations_Board_NLRB {             
 type: String 
 } 
-entity Mara_Louise_Anzalone {             
+entity union_formation {             
 type: String 
 } 
-entity employees {             
+entity non_union_employees {             
 type: String 
 } 
 Starbucks -> federal_labor_law : violated
-National_Labor_Relations_Board -> Starbucks : issued rulings against
-Mara_Louise_Anzalone -> National_Labor_Relations_Board : judge for
-Starbucks -> employees : offered wage increases and benefits to
+National_Labor_Relations_Board_NLRB -> Starbucks : found violation
+Starbucks -> union_formation : sought to stop
+Starbucks -> non_union_employees : offered benefits
+Starbucks -> federal_labor_law : falsely claimed
 @enduml
