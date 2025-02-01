@@ -1,6 +1,6 @@
-# Entity Relationship (ER) Visualization and Chatbot App
+# Entity Relationship (ER) Visualisation and Chatbot App
 
-This app allows users to visualize relationships between entities using an ER diagram generated with PlantUML and interact with a chatbot to query these relationships. The app consists of a **Dashboard** for ER diagram generation and a **Chatbot** for querying relationships.
+This app allows users to visualise relationships between entities using an ER diagram generated with PlantUML and interact with a chatbot to query these relationships. The app consists of a **Dashboard** for ER diagram generation and a **Chatbot** for querying relationships.
 
 ---
 
@@ -72,7 +72,7 @@ The app should now be running on **http://localhost:3000**.
 ## 🛠️ App Usage
 
 ### 📊 Dashboard
-- Visualize relationships between entities using an ER diagram generated with PlantUML.
+- Visualise relationships between entities using an ER diagram generated with PlantUML.
 - Click **"Show Checkbox"** to display the list of entities.
 - Click **"Load NER"** to load the entities.
 - Select entities (e.g., **"Starbucks"** and **"National Labor Relations Board Judge"**).
@@ -80,7 +80,7 @@ The app should now be running on **http://localhost:3000**.
 - Click **"Back"** to clear selections and start over.
 
 ### 💬 Chatbot
-- Query the relationships visualized in the Dashboard.
+- Query the relationships visualised in the Dashboard.
 - Create a new chat by naming the chat and clicking **"Submit"**.
 - Start chatting (e.g., **"What is the relationship between Starbucks and National Labor Relations Board Judge?"**).
 
@@ -104,7 +104,7 @@ The app should now be running on **http://localhost:3000**.
 ## 🛠️ Technologies Used
 - **Frontend:** React.js ⚛️
 - **Backend:** Python (Flask/FastAPI) 🐍 || GroqAI (Model: deepseek-r1-distill-llama-70b) 🤖
-- **Visualization:** PlantUML 🖥️
+- **Visualisation:** PlantUML 🖥️
 - **Chatbot:** OpenAI (OpenAI API)  🤖
 
 ---
