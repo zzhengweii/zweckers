@@ -8,6 +8,9 @@ This application is aimed to accelerate the analysis of relationships of any dat
 
 2️⃣ **Integration of an Interactive Chatbot:** The application offers a chatbot that can take an image of either the ER diagram or a selected row of data and process it. Then, it waits for the user to enter something and hence query the dataset based on the visualized relationships or selected data.
 
+---
+# 🌐 Live Website
+👉 View our live website [**here**](https://yourwebsite.com)!
 
 ---
 
