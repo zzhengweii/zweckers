@@ -62,14 +62,7 @@ npm install
 ### 🔑 API Key Setup  
 Before running the chatbot backend, you **must** set up your **DeepSeek API key**. 
 
-1. Navigate to the `server` folder:  
-```bash
-cd server
-```
-2. Create a .env folder and get your Deepseek API and put it in your .env file
-```bash
-   echo "DEEPSEEK_API_KEY=your_deepseek_api_key_here" > .env
-```
+Insert your API Key in both **'main.py'** files in **chatbot** and **ner_diagram** at **client = Groq(api_key="your_api_key")** with the quotation marks ("").
 
 #### Backend 1 (NER Diagram): 
 ```bash
