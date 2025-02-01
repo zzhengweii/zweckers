@@ -2,12 +2,15 @@ from flask import Flask, render_template, request, jsonify
 import openai
 from flask_cors import CORS  # For React communication with Flask
 import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
 
 # API Key Set-Up
-openai.api_key = os.getenv("DEEPSEEK_API_KEY")
+env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.env'))
+load_dotenv(env_path)
+api_key = os.getenv("DEEPSEEK_API_KEY")
 print("DEEPSEEK_API_KEY:", openai.api_key)
 
 
