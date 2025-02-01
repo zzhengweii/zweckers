@@ -205,7 +205,7 @@ function Chatbot() {
     <div className="Container">
       <div>
         <p className="Header">Your ER Diagram Questions, Answered Here</p>
-        <p className="Subtitles">Powered by DeepSeek</p>
+        <p className="Subtitles">Powered by OpenAI</p>
       </div>
 
       <div className="ChatNameContainer">
@@ -245,7 +245,15 @@ function Chatbot() {
             key={index}
             isBot={msg.isBot}
             name={msg.name}
-            text={<div>{<ReactMarkdown>{msg.text}</ReactMarkdown>}</div>}
+            text={
+              <div>
+                {
+                  <ReactMarkdown>
+                    {msg.text.replace(/<think>.*?<\/think>/gs, "")}
+                  </ReactMarkdown>
+                }
+              </div>
+            }
           />
         ))}
         <div ref={messagesEndRef} />

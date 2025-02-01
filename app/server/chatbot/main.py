@@ -8,7 +8,6 @@ app = Flask(__name__)
 CORS(app)
 
 
-
 # Define your custom prompt
 PROMPT = "Your input text or content that will be processed"
 
@@ -61,7 +60,7 @@ def get_Chat_response(text):
     """
 
     # Call the Groq API with the prompt
-    client = Groq(api_key="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"
+    client = Groq(api_key="your_api_key"
 )
     response = client.chat.completions.create(
         model="deepseek-r1-distill-llama-70b",  # You can change the model to the one you're using

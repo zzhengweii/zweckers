@@ -31,6 +31,9 @@ This application is aimed to accelerate the analysis of relationships of any dat
 
 Follow these steps to set up and run the app locally:
 
+## ⚠️ Preprerequisites
+Make Sure you insatall anaconda first 
+
 ### 1️⃣ Clone the Repository
 ```bash
 git clone git@github.com:clarequek/zweckers.git
@@ -38,13 +41,9 @@ cd .../zweckers
 ```
 
 ### 2️⃣ Activate Virtual Environment
-#### Mac/Linux:
 ```bash
-source venv/bin/activate
-```
-#### Windows:
-```bash
-venv\Scripts\activate
+conda create --name venv python=3.11
+conda activate venv
 ```
 
 ### 3️⃣ Install Python Libraries
@@ -63,14 +62,7 @@ npm install
 ### 🔑 API Key Setup  
 Before running the chatbot backend, you **must** set up your **DeepSeek API key**. 
 
-1. Navigate to the `server` folder:  
-```bash
-cd server
-```
-2. Create a .env folder and get your Deepseek API and put it in your .env file
-```bash
-   echo "DEEPSEEK_API_KEY=your_deepseek_api_key_here" > .env
-```
+Insert your API Key in both **'main.py'** files in **chatbot** and **ner_diagram** at **client = Groq(api_key="your_api_key")** with the quotation marks ("").
 
 #### Backend 1 (NER Diagram): 
 ```bash
@@ -111,6 +103,7 @@ The app should now be running on **http://localhost:3000**.
 
 ## 📝 Notes
 - **Switching Between Dashboard and Chatbot:** There is a known bug where switching between the Dashboard and Chatbot requires reloading the Dashboard to refresh the data.
+-- **Searching of Entities:** Currently, the search function does not work so user must manually search using **"Ctrl+F** || **Cmd+F**
 - Ensure **both backend servers** (NER Diagram and Chatbot) are running before using the app.
 
 ---

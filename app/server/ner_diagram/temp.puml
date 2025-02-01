@@ -5,18 +5,17 @@ type: String
 entity federal_labor_law {             
 type: String 
 } 
-entity National_Labor_Relations_Board_NLRB {             
-type: String 
-} 
-entity union_formation {             
-type: String 
-} 
 entity non_union_employees {             
 type: String 
 } 
+entity National_Labor_Relations_Board_NLRB {             
+type: String 
+} 
+entity unions {             
+type: String 
+} 
 Starbucks -> federal_labor_law : violated
-National_Labor_Relations_Board_NLRB -> Starbucks : found violation
-Starbucks -> union_formation : sought to stop
-Starbucks -> non_union_employees : offered benefits
-Starbucks -> federal_labor_law : falsely claimed
+Starbucks -> non_union_employees : offered benefits to
+National_Labor_Relations_Board_NLRB -> Starbucks : found labor law violations against
+Starbucks -> unions : prevented formation of
 @enduml
