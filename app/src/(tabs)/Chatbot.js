@@ -191,7 +191,7 @@ function Chatbot() {
         <div className="Container">
             <div>
                 <p className="Header">Your ER Diagram Questions, Answered Here</p>
-                <p className="Subtitles">Powered by OpenAI</p>
+                <p className="Subtitles">Powered by DeepSeek</p>
             </div>
 
             <div className="ChatNameContainer">
