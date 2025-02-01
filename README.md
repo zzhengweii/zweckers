@@ -123,6 +123,11 @@ The app should now be running on **http://localhost:3000**.
 
 ---
 
+## 📹 Video Demonstration
+Watch our video demonstration on YouTube here: [https://www.youtube.com/watch?v=nBZCBYGB-m8&t=12s ](https://youtu.be/nBZCBYGB-m8)
+
+---
+
 ## 📜 License
 This project is licensed under the **MIT License**. See [MIT License](LICENSE) for details.
 
