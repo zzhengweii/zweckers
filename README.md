@@ -32,7 +32,7 @@ This application is aimed to accelerate the analysis of relationships of any dat
 Follow these steps to set up and run the app locally:
 
 ## ⚠️ Preprerequisites
-Make Sure you insatall anaconda first 
+Make sure you install anaconda first. The link can be found here: https://docs.anaconda.com/anaconda/install/
 
 ### 1️⃣ Clone the Repository
 ```bash
